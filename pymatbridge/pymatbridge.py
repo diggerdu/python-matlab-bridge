@@ -271,7 +271,10 @@ class _Session(object):
         return result['success']
 
     def _json_response(self, **kwargs):
-        return json.loads(self._response(**kwargs), object_hook=decode_pymat)
+        try:
+            return json.loads(self._response(**kwargs), object_hook=decode_pymat)
+        except:
+            return None
 
     def run_func(self, func_path, *func_args, **kwargs):
         """Run a function in Matlab and return the result.
